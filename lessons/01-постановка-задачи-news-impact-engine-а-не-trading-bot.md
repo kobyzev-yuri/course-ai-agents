@@ -23,10 +23,18 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox --add-dir "$(pwd)" "Inspect this repository and summarize the Chip News Impact Engine goal, constraints, and first safe next step. Do not modify files."
+agy --print --sandbox --add-dir "$(pwd)" "Audit lesson 1 for a beginner. Explain what the project already does by tracing data/sample_news.jsonl through src/news_impact/cli.py and run_pipeline into the structured output. Identify the product boundary between news-intelligence labels and trading advice. Name one wording or behavior that could confuse a student into reading the output as a trading signal. Do not modify files."
 ```
 
-Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.
+Здесь `agy` нужен не для того, чтобы сказать "начните с первого урока". Первый урок и так является точкой входа. Ценность задания в другом: агент должен быстро проверить, как ученик понял границу продукта, и связать абстрактное описание с реальным потоком данных в коде.
+
+Ожидаемый ответ агента:
+- показывает путь `data/sample_news.jsonl` -> `src/news_impact/cli.py` -> `run_pipeline` -> structured output;
+- объясняет, что `up/down/neutral`, `strength`, `horizon` и `confidence` являются news-intelligence labels, а не командой покупать или продавать;
+- называет места, где формулировки, например "impulse" или "market note", могут быть прочитаны слишком близко к trading-сигналу;
+- предлагает первый безопасный шаг: ручной разбор одного результата и проверка его evidence, а не изменение модели или подключение внешних API.
+
+Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его аудит с текущим кодом, тестами и ограничениями курса.
 
 ## Разбор руками
 1. Найдите в коде место, где реализуется тема урока.

@@ -86,13 +86,13 @@ def assess_story(story: Story) -> list[ImpactAssessment]:
     for ticker in story.tickers:
         why = (
             f"{COMPANY_NAMES[ticker]} is linked to a {event_type} story. "
-            f"The rule-based scorer labels the likely news impulse as {direction}/{strength} over {horizon}."
+            f"The rule-based scorer assigns a news-impact label of {direction}/{strength} over {horizon}."
         )
         risks = []
         if confidence < 0.7:
-            risks.append("Low confidence: send to human review before using in a market note.")
+            risks.append("Low confidence: send to human review before using in a student report.")
         if direction == "neutral":
-            risks.append("Direction is ambiguous; check price action and analyst revisions.")
+            risks.append("Direction is ambiguous; check source coverage and competing explanations.")
         assessments.append(
             ImpactAssessment(
                 ticker=ticker,
