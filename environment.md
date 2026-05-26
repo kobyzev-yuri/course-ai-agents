@@ -1,18 +1,22 @@
-# Окружение для практики
+# Окружение курса
 
-Практические примеры курса рассчитаны на conda-окружение `py11` и OpenAI-compatible API router.
-
-## Активация
+Основной интерфейс практики: Antigravity CLI `agy`.
 
 ```bash
 conda activate py11
+agy --version
+agy --help
 ```
 
-## Конфигурация LLM
+Базовые зависимости:
 
-В корне workspace используется файл `config.env`. Примеры ищут его автоматически вверх по дереву директорий.
+```bash
+pip install -r requirements.txt
+```
 
-Ожидаемые переменные:
+Если `langgraph` или `crewai` временно недоступны из сети, базовый прототип все равно запускается: LangGraph и CrewAI слои имеют deterministic fallback для учебных тестов.
+
+Локальный `config.env` находится на уровень выше репозитория или в рабочей директории. Не коммитьте секреты.
 
 ```bash
 OPENAI_BASE_URL=https://api.proxyapi.ru/openai/v1
@@ -20,25 +24,12 @@ OPENAI_API_KEY=...
 OPENAI_MODEL=gpt-4o-mini
 ```
 
-`OPENAI_MODEL` можно заменить на любую модель, доступную через router. Если переменная не задана, примеры используют `gpt-4o-mini` как нейтральное значение по умолчанию.
-
-## Установка зависимостей
+Безопасные режимы `agy` для курса:
 
 ```bash
-conda activate py11
-pip install -r course-ai-agents/examples/requirements.txt
+agy --print --sandbox "Summarize the repository and suggest the next safe step."
+agy --prompt-interactive "Help me extend the eval dataset. Ask before editing."
+agy --continue
 ```
 
-## Запуск примеров
-
-```bash
-conda activate py11
-python course-ai-agents/examples/01_minimal_agent.py
-python course-ai-agents/examples/05_tool_use_agent.py
-python course-ai-agents/examples/07_langgraph_support_agent.py
-python course-ai-agents/examples/09_crewai_market_brief.py
-```
-
-## Правило безопасности
-
-Не коммитьте `config.env` и не вставляйте API key в учебные материалы, prompts или ответы агента. Ключ должен оставаться только в локальной конфигурации окружения.
+Не используйте `--dangerously-skip-permissions` в учебной работе, кроме отдельной sandbox-only демонстрации с пустым тестовым проектом.

@@ -1,0 +1,16 @@
+[project]
+name = "chip-news-impact-engine"
+version = "0.2.0"
+description = "Training project for an agentic chip-stock news impact engine."
+requires-python = ">=3.11"
+dependencies = [
+  "openai",
+  "python-dotenv",
+]
+
+[project.optional-dependencies]
+agents = ["langgraph", "crewai"]
+dev = []
+
+[tool.setuptools.packages.find]
+where = ["src"]

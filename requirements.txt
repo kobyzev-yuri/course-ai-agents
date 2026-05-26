@@ -1,0 +1,5 @@
+openai
+python-dotenv
+# Optional for later lessons. The runnable baseline works without these packages.
+langgraph
+crewai

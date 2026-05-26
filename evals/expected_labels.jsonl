@@ -1,0 +1,5 @@
+{"story_contains": "Blackwell", "ticker": "NVDA", "impact_direction": "up", "impact_strength": "strong"}
+{"story_contains": "export", "ticker": "NVDA", "impact_direction": "down", "impact_strength": "strong"}
+{"story_contains": "HBM", "ticker": "MU", "impact_direction": "up", "impact_strength": "strong"}
+{"story_contains": "DRAM", "ticker": "MU", "impact_direction": "down", "impact_strength": "weak"}
+{"story_contains": "SSD", "ticker": "SNDK", "impact_direction": "up", "impact_strength": "weak"}

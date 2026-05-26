@@ -1,63 +1,84 @@
-# Курс: AI-агенты, архитектура и применение
+# News Impact Agents: курс по агентным системам на реальном проекте
 
-Практический курс из 15 уроков о том, как проектировать AI-агентов для coding, research, customer support, QA automation и business workflows. Курс использует три опорных инструмента:
+Это практический инженерный курс, в котором ученик строит **Chip News Impact Engine**: систему поиска и оценки новостей, влияющих на акции компаний-производителей чипов: `NVDA`, `SNDK`, `MU`.
 
-- **Google Antigravity** — среда для агентной разработки, постановки задач, параллельных агентов и проверки через editor/terminal/browser/artifacts loop.
-- **LangGraph** — фреймворк для управляемых stateful-агентов, графов, checkpointing, human-in-the-loop и production workflow.
-- **CrewAI** — фреймворк для быстрых multi-agent прототипов через роли, задачи, crews и flows.
+Курс больше не является набором разрозненных тем. Все 15 уроков последовательно добавляют один слой к одному продукту.
 
-## Для кого курс
+## Что делает система
 
-Курс рассчитан на разработчиков, тимлидов, product/automation engineers и технических специалистов, которые уже понимают основы LLM, но хотят перейти от “чат с моделью” к надежным агентным системам.
+Для каждой важной новости система возвращает structured output:
 
-## Результат обучения
+```json
+{
+  "ticker": "NVDA",
+  "company": "NVIDIA",
+  "event_type": "export_control",
+  "impact_direction": "down",
+  "impact_strength": "strong",
+  "horizon": "1w",
+  "confidence": 0.82,
+  "evidence": ["source: title"],
+  "why_it_matters": "...",
+  "risks_to_call": ["..."]
+}
+```
 
-После курса слушатель сможет:
+Это **не trading bot** и не инвестиционный совет. Это учебная news-intelligence система для изучения архитектуры AI-агентов.
 
-- отличать агентный workflow от обычного LLM-промпта;
-- проектировать агента через цель, состояние, инструменты, проверки и права;
-- выбирать между Antigravity, LangGraph и CrewAI под конкретный сценарий;
-- строить single-agent и multi-agent архитектуры;
-- добавлять human-in-the-loop, checkpointing, evals, observability и security controls;
-- защищать архитектуру агентной системы на финальном проекте.
+## Инструменты курса
 
-## Формат урока
+- **Antigravity CLI (`agy`)**: agentic development loop. Ученик поручает агенту анализировать код, проектировать diff, тесты и evals.
+- **LangGraph**: controlled runtime pipeline: state, nodes, routing, checkpointing, human review.
+- **CrewAI**: analyst-review crew: semiconductor analyst, market reaction analyst, skeptic reviewer, editor.
 
-Каждый урок начинается с обязательной подготовки окружения: `conda activate py11`, установка нужных пакетов и проверка `config.env`. Это делает практику воспроизводимой и сразу связывает теорию с runnable-примерами.
+## Быстрый запуск
 
-## Структура
+```bash
+conda activate py11
+python -m news_impact.cli --news data/sample_news.jsonl --format markdown
+python -m unittest discover -s tests
+python evals/run_eval.py
+```
 
-1. [Что такое AI-агент и чем он отличается от чатбота](lessons/01-agent-vs-chatbot.md)
-2. [Анатомия агента: модель, инструкции, инструменты, память, среда](lessons/02-agent-anatomy.md)
-3. [Antigravity как практическая среда агентной работы](lessons/03-antigravity-workspace.md)
-4. [Промпт как спецификация задачи для агента](lessons/04-prompt-as-specification.md)
-5. [Tool use: как агент безопасно действует во внешнем мире](lessons/05-tool-use.md)
-6. [Память и состояние: от контекста диалога к управляемому workflow](lessons/06-memory-and-state.md)
-7. [LangGraph: агент как граф состояний](lessons/07-langgraph-state-graphs.md)
-8. [Надежность: checkpointing, retries, resume и human-in-the-loop](lessons/08-reliability-hitl.md)
-9. [CrewAI: ролевые команды агентов](lessons/09-crewai-crews.md)
-10. [CrewAI Flows и управляемая оркестрация](lessons/10-crewai-flows.md)
-11. [Multi-agent архитектуры: параллельность, делегирование, конфликт результатов](lessons/11-multi-agent-architectures.md)
-12. [Проверка результата: evals, тесты, артефакты и критики](lessons/12-evals-and-verification.md)
-13. [Безопасность и контроль: права, секреты, sandbox, audit trail](lessons/13-security-and-control.md)
-14. [Production-подход: observability, стоимость, latency, качество](lessons/14-production-observability.md)
-15. [Финальный проект: спроектировать агентную систему под реальную задачу](lessons/15-final-project.md)
+## Структура репозитория
 
-## Дополнительные материалы
+- `src/news_impact/` — runnable-прототип Chip News Impact Engine.
+- `data/sample_news.jsonl` — учебный набор chip-market новостей.
+- `evals/` — expected labels и eval runner.
+- `tests/` — unit tests для schema, pipeline, review contract.
+- `lessons/` — 15 последовательных уроков.
+- `agy-prompts/` — prompts для Antigravity CLI по каждому уроку.
+- `projects/final-project.md` — финальная защита.
+- `environment.md` — окружение, `agy`, `config.env`, безопасные режимы.
 
-- [Окружение для практики](environment.md)
-- [Шаблон урока](lesson-template.md)
-- [Все мини-тесты с ответами](assessments/quizzes-with-answers.md)
-- [Финальный проект и критерии оценки](projects/final-project.md)
-- [Сравнительная карта инструментов](tool-comparison.md)
+## Последовательность уроков
 
-## Практические примеры
+1. [Постановка задачи: news impact engine, а не trading bot](lessons/01-постановка-задачи-news-impact-engine-а-не-trading-bot.md)
+2. [Схема данных и labels](lessons/02-схема-данных-и-labels.md)
+3. [Baseline LLM classifier](lessons/03-baseline-llm-classifier.md)
+4. [News ingestion](lessons/04-news-ingestion.md)
+5. [Dedup и story clustering](lessons/05-dedup-и-story-clustering.md)
+6. [Entity и ticker mapping](lessons/06-entity-и-ticker-mapping.md)
+7. [Event classification](lessons/07-event-classification.md)
+8. [Impact scoring](lessons/08-impact-scoring.md)
+9. [Horizon scoring](lessons/09-horizon-scoring.md)
+10. [LangGraph pipeline](lessons/10-langgraph-pipeline.md)
+11. [LangGraph reliability](lessons/11-langgraph-reliability.md)
+12. [CrewAI analyst crew](lessons/12-crewai-analyst-crew.md)
+13. [Verifier и eval dataset](lessons/13-verifier-и-eval-dataset.md)
+14. [Report/UI/API](lessons/14-report-ui-api.md)
+15. [Финальная защита](lessons/15-финальная-защита.md)
 
-Примеры находятся в `examples/` и используют `config.env` из корня workspace:
+## Работа с agy
 
-- `01_minimal_agent.py` — минимальный агент с планом, действием и критерием проверки.
-- `05_tool_use_agent.py` — безопасный mock tool call без внешних побочных эффектов.
-- `07_langgraph_support_agent.py` — LangGraph workflow с routing и human gate.
-- `09_crewai_market_brief.py` — CrewAI команда researcher/analyst/editor.
-- `10_crewai_flow_onboarding.py` — CrewAI Flow с детерминированным ветвлением.
-# course-ai-agents
+```bash
+agy --version
+agy --print --sandbox "Inspect the repository and suggest the next safe step."
+agy --continue
+```
+
+Каждый урок содержит свой `agy` prompt и ручной разбор. Ответ агента нельзя принимать автоматически: ученик обязан проверить код, tests, evals и финансовые ограничения.
+
+## Ограничение ответственности
+
+Курс предназначен для обучения архитектуре AI-агентов. Выводы системы не являются финансовой рекомендацией, торговым сигналом или прогнозом доходности.
