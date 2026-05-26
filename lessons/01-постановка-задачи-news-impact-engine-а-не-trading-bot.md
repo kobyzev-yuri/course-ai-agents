@@ -22,6 +22,8 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 
 ## Agentic задание через agy
 
+Сначала используйте `agy` как навигатор по проекту:
+
 ```bash
 agy --print --sandbox --add-dir "$(pwd)" "Audit lesson 1 for a beginner. Explain what the project already does by tracing data/sample_news.jsonl through src/news_impact/cli.py and run_pipeline into the structured output. Identify the product boundary between news-intelligence labels and trading advice. Name one wording or behavior that could confuse a student into reading the output as a trading signal. Do not modify files."
 ```
@@ -35,6 +37,19 @@ agy --print --sandbox --add-dir "$(pwd)" "Audit lesson 1 for a beginner. Explain
 - предлагает первый безопасный шаг: ручной разбор одного результата и проверка его evidence, а не изменение модели или подключение внешних API.
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его аудит с текущим кодом, тестами и ограничениями курса.
+
+Затем используйте `agy` уже как coding assistant. Задача должна быть маленькой, проверяемой и связанной с границей продукта:
+
+```bash
+agy --prompt-interactive --add-dir "$(pwd)" "Help me add one regression test or minimal wording fix that protects the lesson 1 boundary: the report must read as news intelligence, not trading advice. Inspect reporting.py, scoring.py, and tests. Propose the diff first, explain which test should fail before the change, and ask before editing files."
+```
+
+Хороший результат такого запуска — не большой рефакторинг, а один понятный patch: например, тест на disclaimer в markdown-отчете, проверка отсутствия слов вроде `buy`, `sell`, `trading signal`, или замена фразы, которая звучит как торговая рекомендация. После любого изменения ученик обязан запустить:
+
+```bash
+python -m unittest discover -s tests
+python evals/run_eval.py
+```
 
 ## Разбор руками
 1. Найдите в коде место, где реализуется тема урока.
@@ -60,6 +75,12 @@ python evals/run_eval.py
 2. Какой выход обязан быть структурированным?
 3. Где нужен human review или skeptic review?
 4. Какая ошибка в этом уроке опаснее всего для аналитика?
+
+## Ответы для самопроверки
+1. Вход — учебный JSONL-файл `data/sample_news.jsonl` с новостями и список целевых тикеров `NVDA`, `SNDK`, `MU`. Через CLI этот вход попадает в `run_pipeline`, где новости загружаются, фильтруются, группируются в stories и передаются в scoring.
+2. Выход — `ImpactAssessment`: ticker, company, story/news metadata, `event_type`, `impact_direction`, `impact_strength`, `horizon`, `confidence`, `evidence`, `why_it_matters`, `risks_to_call`. Эти поля нужны как structured output, чтобы результат можно было тестировать и сравнивать в evals.
+3. Human review нужен для low-confidence, neutral/ambiguous, спорных read-through случаев и любых strong labels, где evidence слабее вывода. Skeptic review должен искать альтернативные объяснения, дубликаты, неверный ticker mapping и слишком уверенную формулировку.
+4. Самая опасная ошибка — превратить news-intelligence label в инвестиционную рекомендацию: например, прочитать `up/strong over 3w` как команду покупать, игнорируя evidence, confidence, ограничения выборки и disclaimer. Вторая близкая ошибка — выдать эвристический label без проверяемого evidence.
 
 ## Критерий перехода дальше
 Переходите к следующему уроку только если команда тестов проходит, а вы можете объяснить один пример правильного label и один пример сомнительного label.
