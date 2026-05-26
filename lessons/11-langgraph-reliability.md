@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Design a human review checkpoint for low-confidence strong-impact stories. Return state fields and resume steps."
+agy --print --sandbox --add-dir "$(pwd)" "Design a human review checkpoint for low-confidence strong-impact stories. Return state fields and resume steps."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

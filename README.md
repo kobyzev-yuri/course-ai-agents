@@ -73,9 +73,13 @@ python evals/run_eval.py
 
 ```bash
 agy --version
-agy --print --sandbox "Inspect the repository and suggest the next safe step."
+agy --print --sandbox --add-dir "$(pwd)" "Inspect the repository and suggest the next safe step."
 agy --continue
 ```
+
+Запускайте команды из корня репозитория. Флаг `--add-dir "$(pwd)"` явно добавляет текущий проект в workspace `agy`; без него CLI может стартовать в scratch-директории и не увидеть файлы курса.
+
+Подробные варианты запуска, включая read-only prompt без внешних артефактов и признаки неправильного workspace, описаны в `environment.md`.
 
 Каждый урок содержит свой `agy` prompt и ручной разбор. Ответ агента нельзя принимать автоматически: ученик обязан проверить код, tests, evals и финансовые ограничения.
 

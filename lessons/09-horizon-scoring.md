@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Explain why export_control maps to 1w while capex maps to 1m in this training project."
+agy --print --sandbox --add-dir "$(pwd)" "Explain why export_control maps to 1w while capex maps to 1m in this training project."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

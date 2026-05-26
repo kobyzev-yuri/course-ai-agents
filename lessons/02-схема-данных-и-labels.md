@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Review src/news_impact/schema.py and propose two missing validation tests for impact labels."
+agy --print --sandbox --add-dir "$(pwd)" "Review src/news_impact/schema.py and propose two missing validation tests for impact labels."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

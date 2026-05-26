@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Inspect this repository and summarize the Chip News Impact Engine goal, constraints, and first safe next step. Do not modify files."
+agy --print --sandbox --add-dir "$(pwd)" "Inspect this repository and summarize the Chip News Impact Engine goal, constraints, and first safe next step. Do not modify files."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

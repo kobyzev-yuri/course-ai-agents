@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Critique the rule-based impact scorer and suggest where LLM structured output should be added."
+agy --print --sandbox --add-dir "$(pwd)" "Critique the rule-based impact scorer and suggest where LLM structured output should be added."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Run through the CLI report contract and propose an API response shape for the same data."
+agy --print --sandbox --add-dir "$(pwd)" "Run through the CLI report contract and propose an API response shape for the same data."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

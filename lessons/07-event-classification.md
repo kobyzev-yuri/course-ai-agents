@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Propose three tests for classify_event covering export_control, pricing, and product events."
+agy --print --sandbox --add-dir "$(pwd)" "Propose three tests for classify_event covering export_control, pricing, and product events."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

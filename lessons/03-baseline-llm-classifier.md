@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Design a baseline LLM classifier prompt for one news story. Return JSON schema and list failure modes."
+agy --print --sandbox --add-dir "$(pwd)" "Design a baseline LLM classifier prompt for one news story. Return JSON schema and list failure modes."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

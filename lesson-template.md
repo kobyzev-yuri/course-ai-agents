@@ -13,7 +13,7 @@
 `conda activate py11`, проверка CLI, тестов и `config.env` без раскрытия секретов.
 
 ## Agentic задание через agy
-Один воспроизводимый prompt для `agy --print --sandbox` или `agy --prompt-interactive`.
+Один воспроизводимый prompt для `agy --print --sandbox --add-dir "$(pwd)"` или `agy --prompt-interactive --add-dir "$(pwd)"`, запущенный из корня репозитория.
 
 ## Разбор руками
 Входы, выходы, риски, false positives, human-review points.

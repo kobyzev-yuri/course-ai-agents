@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Review ticker mapping rules and identify one direct mention and one sector read-through example."
+agy --print --sandbox --add-dir "$(pwd)" "Review ticker mapping rules and identify one direct mention and one sector read-through example."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

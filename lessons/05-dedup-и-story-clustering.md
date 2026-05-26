@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Explain how story_key works and suggest a semantic dedup improvement without implementing it."
+agy --print --sandbox --add-dir "$(pwd)" "Explain how story_key works and suggest a semantic dedup improvement without implementing it."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.

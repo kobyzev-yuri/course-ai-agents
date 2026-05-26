@@ -23,7 +23,7 @@ python -m news_impact.cli --news data/sample_news.jsonl --format markdown
 ## Agentic задание через agy
 
 ```bash
-agy --print --sandbox "Add a plan for extending ingestion.py with RSS/API sources while keeping sample_news.jsonl as fallback."
+agy --print --sandbox --add-dir "$(pwd)" "Add a plan for extending ingestion.py with RSS/API sources while keeping sample_news.jsonl as fallback."
 ```
 
 Смысл задания не в том, чтобы слепо принять ответ агента, а в том, чтобы сравнить его предложение с текущим кодом, тестами и ограничениями курса.
