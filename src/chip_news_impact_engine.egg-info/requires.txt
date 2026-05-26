@@ -1,8 +1,0 @@
-openai
-python-dotenv
-
-[agents]
-langgraph
-crewai
-
-[dev]
